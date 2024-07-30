@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package clases.empleado;
 
-/**
- *
- * @author SENA
- */
-public class EmpleadoEventual {
-    
+public class EmpleadoEventual extends Empleado {
+    private double honorariosPorHora;
+    private String fechaTerminoContrato;
+
+    public double getHonorariosPorHora() {
+        return honorariosPorHora;
+    }
+
+    public void setHonorariosPorHora(double honorariosPorHora) {
+        this.honorariosPorHora = honorariosPorHora;
+    }
+
+    public String getFechaTerminoContrato() {
+        return fechaTerminoContrato;
+    }
+
+    public void setFechaTerminoContrato(String fechaTerminoContrato) {
+        this.fechaTerminoContrato = fechaTerminoContrato;
+    }
 }

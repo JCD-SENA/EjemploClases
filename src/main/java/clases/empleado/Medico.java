@@ -1,13 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package clases.empleado;
 
-/**
- *
- * @author SENA
- */
-public class Medico {
-    
+public class Medico extends EmpleadoPlanilla {
+    private String especialidad;
+    private int numeroDeConsultorio;
+
+    public String getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
+
+    public int getNumeroDeConsultorio() {
+        return numeroDeConsultorio;
+    }
+
+    public void setNumeroDeConsultorio(int numeroDeConsultorio) {
+        this.numeroDeConsultorio = numeroDeConsultorio;
+    }
 }
