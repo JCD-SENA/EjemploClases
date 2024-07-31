@@ -3,7 +3,7 @@ package clases.empleado;
 import javax.swing.JOptionPane;
 
 public class EmpleadoPlanilla extends Empleado {
-   private double salarioMensual;
+    private double salarioMensual;
     private double porcentajeAdicionalPorHoraExtra;
 
     @Override

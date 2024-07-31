@@ -72,6 +72,10 @@ public class ModeloDatos {
             for (EmpleadoPlanilla empleadoPlanilla : empleadosPlanillaMap.values()) {
                 empleadoPlanilla.imprimirDatosPersona(msj);
             }
+            if (medicosMap.size() >= 1) {
+                System.out.println("- Medicos -");
+                imprimirMedicos();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "NO HAY "+msj);
         }

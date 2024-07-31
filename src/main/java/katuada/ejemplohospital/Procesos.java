@@ -84,7 +84,8 @@ public class Procesos {
         switch (opcion) {
             case 1: miModeloDatos.imprimirPacientes(); break;
             case 2: miModeloDatos.imprimirEmpleadosEventuales(); break;
-            case 3: miModeloDatos.imprimirEmpleadosPorPlanilla();
+            case 3: 
+                miModeloDatos.imprimirEmpleadosPorPlanilla();break;
             case 4: miModeloDatos.imprimirMedicos();
             break;
             default: System.out.println("No exite esa opción");
@@ -99,12 +100,12 @@ public class Procesos {
             String nombreMedico=JOptionPane.showInputDialog("Ingrese el nombre del médico");
             Medico medicoEncontrado=miModeloDatos.consultarMedicoPorNombre (nombreMedico);
             if (medicoEncontrado!=null) {
-            String servicio=JOptionPane.showInputDialog("Ingrese el servicio o motivo de la consulta");
-            String fechaConsulta=JOptionPane.showInputDialog("Ingrese la fecha de la consulta");
-            String horaConsulta=JOptionPane.showInputDialog("Ingrese la hora de la consulta");
-            String lugar = "La cita será en el consultorio "+medicoEncontrado.getNumeroDeConsultorio();
-            CitaMedica miCita = new CitaMedica (pacienteEncontrado, medicoEncontrado, servicio, fechaConsulta, horaConsulta, lugar);
-            miModeloDatos.registrarCitaMedica(miCita);
+                String servicio=JOptionPane.showInputDialog("Ingrese el servicio o motivo de la consulta");
+                String fechaConsulta=JOptionPane.showInputDialog("Ingrese la fecha de la consulta");
+                String horaConsulta=JOptionPane.showInputDialog("Ingrese la hora de la consulta");
+                String lugar = "La cita será en el consultorio "+medicoEncontrado.getNumeroDeConsultorio();
+                CitaMedica miCita = new CitaMedica (pacienteEncontrado, medicoEncontrado, servicio, fechaConsulta, horaConsulta, lugar);
+                miModeloDatos.registrarCitaMedica(miCita);
             } else {
                 System.out.println("El medico no se encuentra registrado en el sistema");
             }
