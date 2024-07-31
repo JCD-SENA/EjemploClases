@@ -36,11 +36,15 @@ public class Procesos {
     
     private void registrarPaciente() {
         Paciente miPaciente=new Paciente();
-        miPaciente.registrarDatos();
-        if (miModeloDatos.consultarPacientePorDocumento(miPaciente.getNumeroDeDNI()) == null) {
-            miModeloDatos.registrarPersona (miPaciente);
-        } else {
-            JOptionPane.showMessageDialog(null, "El paciente ya está registrado");
+        try {
+            miPaciente.registrarDatos();
+            if (miModeloDatos.consultarPacientePorDocumento(miPaciente.getNumeroDeDNI()) == null) {
+                miModeloDatos.registrarPersona (miPaciente);
+            } else {
+                JOptionPane.showMessageDialog(null, "El paciente ya está registrado");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Datos invalidos, no se pudo registrar el paciente");
         }
     }
     
@@ -49,79 +53,66 @@ public class Procesos {
         menuTipoEmpleado+="1. Empleado Eventual\n";
         menuTipoEmpleado+="2. Empleado por Planilla\n";
         menuTipoEmpleado+="Seleccione el tipo de empleado a registrar\n";
-        int tipoEmpleado = Integer.parseInt(JOptionPane.showInputDialog(menuTipoEmpleado));
-        switch (tipoEmpleado) {
-            case 1: //Registro Empleado Eventual
-                EmpleadoEventual miEmpleadoEventual=new EmpleadoEventual();
-                miEmpleadoEventual.registrarDatos();
-                if (miModeloDatos.consultarEmpleadoEventualPorDocumento(miEmpleadoEventual.getNumeroDeDNI()) == null)
-                    miModeloDatos.registrarPersona (miEmpleadoEventual);
-                else
-                    JOptionPane.showMessageDialog(null, "El empleado eventual ya está registrado");
-                break;
-            case 2:
-                String resp=JOptionPane.showInputDialog("Ingrese si, si es un médico, de lo contrario es otro tipo de empleado");
-                if (resp.equalsIgnoreCase("si")) {
-                    //Registro Medico
-                    Medico miMedico=new Medico();
-                    miMedico.registrarDatos();
-                    if (miModeloDatos.consultarMedicoPorDocumento(miMedico.getNumeroDeDNI()) == null) {
-                        miModeloDatos.registrarPersona(miMedico);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "El médico ya está registrado");
-                    }
-                }else {
-                    //Registro Empleado Planilla
-                    EmpleadoPlanilla miEmpleadoPlanilla=new EmpleadoPlanilla();
-                    miEmpleadoPlanilla.registrarDatos();
-                    if (miModeloDatos.consultarEmpleadoPlanillaPorDocumento(miEmpleadoPlanilla.getNumeroDeDNI()) == null)
-                        miModeloDatos.registrarPersona (miEmpleadoPlanilla);
+        try {
+            int tipoEmpleado = Integer.parseInt(JOptionPane.showInputDialog(menuTipoEmpleado));
+            switch (tipoEmpleado) {
+                case 1: //Registro Empleado Eventual
+                    EmpleadoEventual miEmpleadoEventual=new EmpleadoEventual();
+                    miEmpleadoEventual.registrarDatos();
+                    if (miModeloDatos.consultarEmpleadoEventualPorDocumento(miEmpleadoEventual.getNumeroDeDNI()) == null)
+                        miModeloDatos.registrarPersona (miEmpleadoEventual);
                     else
-                        JOptionPane.showMessageDialog(null, "El empleado por planilla ya está registrado");
-                }
-                break;
-            default:
-                System.out.println("El tipo de empleado no es valido, intentelo nuevamente");
-                break;
+                        JOptionPane.showMessageDialog(null, "El empleado eventual ya está registrado");
+                    break;
+                case 2:
+                    String resp=JOptionPane.showInputDialog("Ingrese si, si es un médico, de lo contrario es otro tipo de empleado");
+                    if (resp.equalsIgnoreCase("si")) {
+                        //Registro Medico
+                        Medico miMedico=new Medico();
+                        miMedico.registrarDatos();
+                        if (miModeloDatos.consultarMedicoPorDocumento(miMedico.getNumeroDeDNI()) == null) {
+                            miModeloDatos.registrarPersona(miMedico);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "El médico ya está registrado");
+                        }
+                    }else {
+                        //Registro Empleado Planilla
+                        EmpleadoPlanilla miEmpleadoPlanilla=new EmpleadoPlanilla();
+                        miEmpleadoPlanilla.registrarDatos();
+                        if (miModeloDatos.consultarEmpleadoPlanillaPorDocumento(miEmpleadoPlanilla.getNumeroDeDNI()) == null)
+                            miModeloDatos.registrarPersona (miEmpleadoPlanilla);
+                        else
+                            JOptionPane.showMessageDialog(null, "El empleado por planilla ya está registrado");
+                    }
+                    break;
+                default:
+                    System.out.println("El tipo de empleado no es valido, intentelo nuevamente");
+                    break;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Datos invalidos, no se pudo registrar el empleado");
         }
     }
     
     private void registrarCitaMedica() {
-        String menuImprimir="MENU IMPRESIONES\n";
-        menuImprimir+="1. Listar Pacientes\n";
-        menuImprimir+="2. Listar Empleados Eventuales\n";
-        menuImprimir+="3. Listar Empleados Por Planilla\n";
-        menuImprimir+="4. Listar Medicos\n";
-        menuImprimir+="Ingrese una opción\n";
-        System.out.println("**************************************");
-        int opcion = Integer.parseInt(JOptionPane.showInputDialog(menuImprimir));
-        switch (opcion) {
-            case 1: miModeloDatos.imprimirPacientes(); break;
-            case 2: miModeloDatos.imprimirEmpleadosEventuales(); break;
-            case 3: 
-                miModeloDatos.imprimirEmpleadosPorPlanilla();break;
-            case 4: miModeloDatos.imprimirMedicos();
-            break;
-            default: System.out.println("No exite esa opción");
-            break;
-        }
-    }
-    
-    private void registrarCitaledica() {
         String documentoPaciente=JOptionPane.showInputDialog("Ingrese el documento del paciente");
         Paciente pacienteEncontrado=  miModeloDatos.consultarPacientePorDocumento(documentoPaciente);
         if (pacienteEncontrado!=null) {
-            String nombreMedico=JOptionPane.showInputDialog("Ingrese el nombre del médico");
-            Medico medicoEncontrado=miModeloDatos.consultarMedicoPorNombre (nombreMedico);
-            if (medicoEncontrado!=null) {
-                String servicio=JOptionPane.showInputDialog("Ingrese el servicio o motivo de la consulta");
-                String fechaConsulta=JOptionPane.showInputDialog("Ingrese la fecha de la consulta");
-                String horaConsulta=JOptionPane.showInputDialog("Ingrese la hora de la consulta");
-                String lugar = "La cita será en el consultorio "+medicoEncontrado.getNumeroDeConsultorio();
-                CitaMedica miCita = new CitaMedica (pacienteEncontrado, medicoEncontrado, servicio, fechaConsulta, horaConsulta, lugar);
-                miModeloDatos.registrarCitaMedica(miCita);
-            } else {
-                System.out.println("El medico no se encuentra registrado en el sistema");
+            try {
+                String nombreMedico=JOptionPane.showInputDialog("Ingrese el nombre del médico");
+                Medico medicoEncontrado=miModeloDatos.consultarMedicoPorNombre (nombreMedico);
+                if (medicoEncontrado!=null) {
+                    String servicio=JOptionPane.showInputDialog("Ingrese el servicio o motivo de la consulta");
+                    String fechaConsulta=JOptionPane.showInputDialog("Ingrese la fecha de la consulta");
+                    String horaConsulta=JOptionPane.showInputDialog("Ingrese la hora de la consulta");
+                    String lugar = "La cita será en el consultorio "+medicoEncontrado.getNumeroDeConsultorio();
+                    CitaMedica miCita = new CitaMedica (pacienteEncontrado, medicoEncontrado, servicio, fechaConsulta, horaConsulta, lugar);
+                    miModeloDatos.registrarCitaMedica(miCita);
+                } else {
+                    System.out.println("El medico no se encuentra registrado en el sistema");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Dato equivocado, no se pudo registrar");
             }
         }else {
             System.out.println("El paciente no se encuentra registrado en el sistema");
