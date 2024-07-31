@@ -37,7 +37,11 @@ public class Procesos {
     private void registrarPaciente() {
         Paciente miPaciente=new Paciente();
         miPaciente.registrarDatos();
-        miModeloDatos.registrarPersona (miPaciente);
+        if (miModeloDatos.consultarPacientePorDocumento(miPaciente.getNumeroDeDNI()) == null) {
+            miModeloDatos.registrarPersona (miPaciente);
+        } else {
+            JOptionPane.showMessageDialog(null, "El paciente ya está registrado");
+        }
     }
     
     private void registrarEmpleado () {
@@ -58,7 +62,11 @@ public class Procesos {
                     //Registro Medico
                     Medico miMedico=new Medico();
                     miMedico.registrarDatos();
-                    miModeloDatos.registrarPersona (miMedico);
+                    if (miModeloDatos.consultarMedicoPorNombre(miMedico.getNombre()) == null) {
+                        miModeloDatos.registrarPersona (miMedico);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "El médico ya está registrado");
+                    }
                 }else {
                     //Registro Empleado Planilla
                     EmpleadoPlanilla miEmpleadoPlanilla=new EmpleadoPlanilla();
