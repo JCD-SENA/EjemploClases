@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class ModeloDatos {
     HashMap<String, Paciente> pacientesMap;
@@ -43,31 +44,47 @@ public class ModeloDatos {
     
     public void imprimirPacientes() {
         String msj="PACIENTES REGISTRADOS\n";
-        Iterator<String> iterador=pacientesMap.keySet().iterator();
-        while (iterador.hasNext()) {
-            String clave = iterador.next();
-            pacientesMap.get(clave).imprimirDatosPersona(msj);
+        if (pacientesMap.size() >= 1) {
+            Iterator<String> iterador=pacientesMap.keySet().iterator();
+            while (iterador.hasNext()) {
+                String clave = iterador.next();
+                pacientesMap.get(clave).imprimirDatosPersona(msj);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HAY "+msj);
         }
     }
     
     public void imprimirEmpleadosEventuales() {
         String msj="EMPLEADOS EVENTUALES REGISTRADOS\n";
-        for (String clave : empleadosEventualMap.keySet()) {
-            empleadosEventualMap.get(clave).imprimirDatosPersona(msj);
+        if (empleadosEventualMap.size() >= 1) {
+            for (String clave : empleadosEventualMap.keySet()) {
+                empleadosEventualMap.get(clave).imprimirDatosPersona(msj);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HAY "+msj);
         }
     }
     
     public void imprimirEmpleadosPorPlanilla() {
         String msj="EMPLEADOS POR PLANILLA REGISTRADOS\n";
-        for (EmpleadoPlanilla empleadoPlanilla : empleadosPlanillaMap.values()) {
-            empleadoPlanilla.imprimirDatosPersona(msj);
+        if (empleadosPlanillaMap.size() >= 1) {
+            for (EmpleadoPlanilla empleadoPlanilla : empleadosPlanillaMap.values()) {
+                empleadoPlanilla.imprimirDatosPersona(msj);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HAY "+msj);
         }
     }
     
     public void imprimirMedicos() {
         String msj="MEDICOS REGISTRADOS\n";
-        for (Map.Entry<String, Medico> elemento : medicosMap.entrySet()) {
-            elemento.getValue().imprimirDatosPersona(msj);
+        if (medicosMap.size() >= 1) {
+            for (Map.Entry<String, Medico> elemento : medicosMap.entrySet()) {
+                elemento.getValue().imprimirDatosPersona(msj);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "NO HAY "+msj);
         }
     }
     
