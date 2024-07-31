@@ -54,7 +54,10 @@ public class Procesos {
             case 1: //Registro Empleado Eventual
                 EmpleadoEventual miEmpleadoEventual=new EmpleadoEventual();
                 miEmpleadoEventual.registrarDatos();
-                miModeloDatos.registrarPersona (miEmpleadoEventual);
+                if (miModeloDatos.consultarEmpleadoEventualPorDocumento(miEmpleadoEventual.getNumeroDeDNI()) == null)
+                    miModeloDatos.registrarPersona (miEmpleadoEventual);
+                else
+                    JOptionPane.showMessageDialog(null, "El empleado eventual ya está registrado");
                 break;
             case 2:
                 String resp=JOptionPane.showInputDialog("Ingrese si, si es un médico, de lo contrario es otro tipo de empleado");
@@ -62,8 +65,8 @@ public class Procesos {
                     //Registro Medico
                     Medico miMedico=new Medico();
                     miMedico.registrarDatos();
-                    if (miModeloDatos.consultarMedicoPorNombre(miMedico.getNombre()) == null) {
-                        miModeloDatos.registrarPersona (miMedico);
+                    if (miModeloDatos.consultarMedicoPorDocumento(miMedico.getNumeroDeDNI()) == null) {
+                        miModeloDatos.registrarPersona(miMedico);
                     } else {
                         JOptionPane.showMessageDialog(null, "El médico ya está registrado");
                     }
@@ -71,7 +74,10 @@ public class Procesos {
                     //Registro Empleado Planilla
                     EmpleadoPlanilla miEmpleadoPlanilla=new EmpleadoPlanilla();
                     miEmpleadoPlanilla.registrarDatos();
-                    miModeloDatos.registrarPersona (miEmpleadoPlanilla);
+                    if (miModeloDatos.consultarEmpleadoPlanillaPorDocumento(miEmpleadoPlanilla.getNumeroDeDNI()) == null)
+                        miModeloDatos.registrarPersona (miEmpleadoPlanilla);
+                    else
+                        JOptionPane.showMessageDialog(null, "El empleado por planilla ya está registrado");
                 }
                 break;
             default:

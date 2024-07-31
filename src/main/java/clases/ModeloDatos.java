@@ -101,6 +101,29 @@ public class ModeloDatos {
         return miPaciente;
     }
     
+    public EmpleadoPlanilla consultarEmpleadoPlanillaPorDocumento (String docuementoEmpleadoPlanilla) {
+        EmpleadoPlanilla miEmpleadoPlanilla = null;
+        if (empleadosPlanillaMap.containsKey(docuementoEmpleadoPlanilla))
+            miEmpleadoPlanilla = empleadosPlanillaMap.get(docuementoEmpleadoPlanilla);
+        return miEmpleadoPlanilla;
+    }
+    
+    public EmpleadoEventual consultarEmpleadoEventualPorDocumento (String docuementoEmpleadoEventual) {
+        EmpleadoEventual miEmpleadoEventual=null;
+        if (empleadosEventualMap.containsKey(docuementoEmpleadoEventual)) {
+            miEmpleadoEventual = empleadosEventualMap.get(docuementoEmpleadoEventual);
+        }
+        return miEmpleadoEventual;
+    }
+    
+    public Medico consultarMedicoPorDocumento (String docuementoMedico) {
+        Medico miMedico=null;
+        if (medicosMap.containsKey(docuementoMedico)) {
+            miMedico = medicosMap.get(docuementoMedico);
+        }
+        return miMedico;
+    }
+    
     public Medico consultarMedicoPorNombre (String nombreMedico) {
         for (Medico medico : medicosMap.values()) {
             if (medico.getNombre().equalsIgnoreCase (nombreMedico)) {
