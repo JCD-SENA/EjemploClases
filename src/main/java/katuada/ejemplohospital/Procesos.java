@@ -17,8 +17,9 @@ public class Procesos {
         menu+="1. Registrar Paciente\n";
         menu+="2. Registrar Empleado\n";
         menu+="3. Registrar Cita Medica\n";
-        menu+="4. Imprimir Información\n";
-        menu+="5. Salir\n\n";
+        menu+="4. Consultar por documento\n";
+        menu+="5. Imprimir Información\n";
+        menu+="6. Salir\n\n";
         menu+="Ingrese una Opción\n";
         int opcion=0;
         do {
@@ -27,11 +28,58 @@ public class Procesos {
                 case 1: registrarPaciente(); break;
                 case 2: registrarEmpleado(); break;
                 case 3: registrarCitaMedica(); break;
-                case 4: imprimirInformacion(); break;
-                case 5: System.out.println("El sistema ha terminado!"); break; default: System.out.println("No existe el código, verifique nuevamente");
+                case 4: consultarPorDocumento(); break;
+                case 5: imprimirInformacion(); break;
+                case 6: System.out.println("El sistema ha terminado!"); break; default: System.out.println("No existe el código, verifique nuevamente");
                 break;
             }
-        } while (opcion!=5);
+        } while (opcion!=6);
+    }
+    
+    private void consultarPorDocumento () {
+        try {
+            int tipoEmpleado = Integer.parseInt(JOptionPane.showInputDialog("1. Consultar paciente por documento\n2. Consultar medico por documento\n3. Consultar empleado de planilla por documento\n4. Consultar empleado eventual por documento\n5. Salir"));
+            switch (tipoEmpleado) {
+                case 1:
+                    String documentoPaciente = JOptionPane.showInputDialog(null, "Ingrese el documento del paciente");
+                    Paciente miPaciente = miModeloDatos.consultarPacientePorDocumento(documentoPaciente);
+                    if (miPaciente != null)
+                        miPaciente.imprimirDatosPersona("Paciente");
+                    else
+                        JOptionPane.showMessageDialog(null, "No se encontró el paciente");
+                    break;
+                case 2:
+                    String documentoMedico = JOptionPane.showInputDialog(null, "Ingrese el documento del médico");
+                    Medico miMedico = miModeloDatos.consultarMedicoPorDocumento(documentoMedico);
+                    if (miMedico != null)
+                        miMedico.imprimirDatosPersona("Paciente");
+                    else
+                        JOptionPane.showMessageDialog(null, "No se encontró el médico");
+                    break;
+                case 3:
+                    String documentoEmpleadoPlanilla = JOptionPane.showInputDialog(null, "Ingrese el documento del  empleado por planilla");
+                    EmpleadoPlanilla miEmpleadoPlanilla = miModeloDatos.consultarEmpleadoPlanillaPorDocumento(documentoEmpleadoPlanilla);
+                    if (miEmpleadoPlanilla != null)
+                        miEmpleadoPlanilla.imprimirDatosPersona("Empleado planilla");
+                    else
+                        JOptionPane.showMessageDialog(null, "No se encontró el empleado");
+                    break;
+                case 4:
+                    String documentoEmpleadoEventual = JOptionPane.showInputDialog(null, "Ingrese el documento del empleado eventual");
+                    EmpleadoEventual miEmpleadoEventual = miModeloDatos.consultarEmpleadoEventualPorDocumento(documentoEmpleadoEventual);
+                    if (miEmpleadoEventual != null)
+                        miEmpleadoEventual.imprimirDatosPersona("Empleado eventual");
+                    else
+                        JOptionPane.showMessageDialog(null, "No se encontró el empleado");
+                    break;
+                case 5:
+                    System.out.println("Saliendo");
+                    break;
+                default: System.out.println("No exite esa opción"); break;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se pudo consultar");
+        }
     }
     
     private void registrarPaciente() {
